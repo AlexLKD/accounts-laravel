@@ -31,10 +31,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $data=[
+        $data = [
             'title' => 'Ajouter une opération',
         ];
-       return view('form', $data);
+        return view('form', $data);
     }
 
     /**
@@ -45,12 +45,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Transaction;
-        $post->name = $request->name;
-        $post->amount = $request->amount;
-        $post->date_transaction = $request->date_transaction;
-        $post->save();
-       return redirect('form')->with('status', 'Transaction ajoutée');
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'amount' => 'required|numeric',
+        ]);
+        $transaction = new Transaction;
+        $transaction->name = $request->name;
+        $transaction->amount = $request->amount;
+        $transaction->date_transaction = $request->date_transaction;
+        $transaction->save();
+        return redirect('form')->with('status', 'Transaction ajoutée');
     }
 
     /**
