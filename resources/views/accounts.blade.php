@@ -26,10 +26,10 @@
                             <a href="summary.html" class="nav-link link-body-emphasis">Synthèses</a>
                         </li>
                         <li class="nav-item">
-                            <a href="categories.html" class="nav-link link-body-emphasis">Catégories</a>
+                            <a href="{{ @route('categorie') }}" class="nav-link link-body-emphasis">Catégories</a>
                         </li>
                         <li class="nav-item">
-                            <a href="import.html" class="nav-link link-body-emphasis">Importer</a>
+                            <a href="{{ @route('imports') }}" class="nav-link link-body-emphasis">Importer</a>
                         </li>
                     </ul>
                 </nav>
@@ -123,7 +123,7 @@
         </div>
 
         <div class="position-fixed bottom-0 end-0 m-3">
-            <a href="add.html" class="btn btn-primary btn-lg rounded-circle">
+            <a href="{{@route('form')}}" class="btn btn-primary btn-lg rounded-circle">
                 <i class="bi bi-plus fs-1"></i>
             </a>
         </div>

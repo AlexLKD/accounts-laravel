@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction;
 
-class TransactionController extends Controller
+class ImportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,27 +13,20 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $data = [
-            'title' => 'Opérations de Juillet 2023',
-            'transactions' => Transaction::where('date_transaction', 'like', '2023-07-%')
-                ->orderBy('date_transaction', 'desc')
-                ->get(),
-            'total' => Transaction::sum('amount'),
+        $data=[
+            'title' => 'bidon',
         ];
-        return view('accounts', $data);
+       return view('imports', $data);
     }
 
     /**
-     * Show the form for creating a new Transaction.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $data=[
-            'title' => 'Ajouter une opération',
-        ];
-       return view('form', $data);
+        //
     }
 
     /**
