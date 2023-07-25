@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Opérations de Juillet 2023',
+            'title' => 'Opérations de Juillet 2023 - Mes comptes',
             'transactions' => Transaction::where('date_transaction', 'like', '2023-07-%')
                 ->orderBy('date_transaction', 'desc')
                 ->get(),
