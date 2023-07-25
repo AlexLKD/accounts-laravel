@@ -27,5 +27,4 @@ Route::get('/accounts', [TransactionController::class, 'index']);
 Route::get('/imports', [TransactionController::class, 'index'])->name('imports');
 Route::get('/categorie', [TransactionController::class, 'index'])->name('categorie');
 Route::get('/form', [TransactionController::class, 'create'])->name('form');
-Route::post('/form', function(){
-    return 'Transaction ajoutée';})->name('formPost');
+Route::post('/form', [TransactionController::class, 'store'])->name('formPost');

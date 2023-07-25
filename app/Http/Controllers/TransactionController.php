@@ -45,7 +45,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Transaction;
+        $post->name = $request->name;
+        $post->amount = $request->amount;
+        $post->date_transaction = $request->date_transaction;
+        $post->save();
+       return redirect('form')->with('status', 'Transaction ajoutée');
     }
 
     /**
