@@ -99,6 +99,14 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transaction = Transaction::find($id);
+
+        if (!$transaction) {
+            return redirect()->route('index')->with('error', 'Transaction not found.');
+        }
+
+        $transaction->delete();
+
+        return redirect()->route('index')->with('success', 'Transaction deleted successfully.');
     }
 }

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{$title}} - Mes comptes</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{$title}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -13,10 +14,36 @@
 <body>
 
     <div class="container-fluid">
-        @include('header')
+        <header class="row flex-wrap justify-content-between align-items-center p-3 mb-4 border-bottom">
+            <a href="{{@route('index')}}" class="col-1">
+                <i class="bi bi-piggy-bank-fill text-primary fs-1"></i>
+            </a>
+            <nav class="col-11 col-md-7">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="{{@route('index')}}" class="nav-link link-secondary" aria-current="page">Opérations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Synthèses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Importer</a>
+                    </li>
+                </ul>
+            </nav>
+            <form action="" class="col-12 col-md-4" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher..." aria-describedby="button-search">
+                    <button class="btn btn-primary" type="submit" id="button-search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </header>
     </div>
-
-
     <div class="container">
         <section class="card mb-4 rounded-3 shadow-sm">
             <div class="card-header py-3">
@@ -24,6 +51,21 @@
             </div>
             <div class="card-body">
                 <div>
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                    @endif
+
+                    @foreach ($transactions as $transaction)
+                    @endforeach
+
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -39,7 +81,6 @@
                     </div>
                     @endif
                     @section('content')
-
                     @show
                 </div>
 
@@ -48,7 +89,7 @@
     </div>
 
     <div class="position-fixed bottom-0 end-0 m-3">
-        <a href="add.html" class="btn btn-primary btn-lg rounded-circle">
+        <a href="{{@route('form')}}" class="btn btn-primary btn-lg rounded-circle">
             <i class="bi bi-plus fs-1"></i>
         </a>
     </div>

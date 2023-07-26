@@ -28,3 +28,4 @@ Route::get('/imports', [TransactionController::class, 'index'])->name('imports')
 Route::get('/categorie', [TransactionController::class, 'index'])->name('categorie');
 Route::get('/form', [TransactionController::class, 'create'])->name('form');
 Route::post('/form', [TransactionController::class, 'store'])->name('formPost');
+Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');

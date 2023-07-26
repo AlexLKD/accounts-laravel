@@ -1,4 +1,5 @@
-@include('header')
+@extends('page')
+@section('content')
 <div class="container">
     <section class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
@@ -32,20 +33,35 @@
                             {{$transaction->name}}
                         </td>
                         <td class="text-end">
+                            <?php
+                            if (str_contains($transaction['amount'], "-")) {
+                                echo '<span class="rounded-pill text-nowrap bg-warning-subtle px-2">';
+                                echo $transaction['amount'];
+                            } else {
+                                echo '<span class="rounded-pill text-nowrap bg-success-subtle px-2">';
+                                echo '+' . $transaction['amount'];
+                            }
+                            ?>
+                            <!-- 
                             <span class="rounded-pill text-nowrap bg-warning-subtle px-2">
                                 {{$transaction->amount}} €
-                            </span>
+                            </span> -->
                         </td>
                         <td class="text-end text-nowrap">
                             <a href="#" class="btn btn-outline-primary btn-sm rounded-circle">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <a href="#" class="btn btn-outline-danger btn-sm rounded-circle">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            <form method="POST" action="{{ route('transactions.destroy', ['id' => $transaction->id]) }}" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-circle" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -76,10 +92,4 @@
         </div>
     </section>
 </div>
-
-<div class="position-fixed bottom-0 end-0 m-3">
-    <a href="{{@route('form')}}" class="btn btn-primary btn-lg rounded-circle">
-        <i class="bi bi-plus fs-1"></i>
-    </a>
-</div>
-@include('footer')
+@endsection
