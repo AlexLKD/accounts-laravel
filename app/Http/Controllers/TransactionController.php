@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Redirect;
@@ -15,6 +16,9 @@ class TransactionController extends Controller
      */
     public function index()
     {
+
+        // var_dump(Transaction::find(37)->categorie);
+        // exit;
         $data = [
             'title' => 'Opérations de Juillet 2023 - Mes comptes',
             'transactions' => Transaction::where('date_transaction', 'like', '2023-07-%')
@@ -34,6 +38,7 @@ class TransactionController extends Controller
     {
         $data = [
             'title' => 'Ajouter une opération',
+            'categories' => Categorie::all(),
         ];
         return view('form', $data);
     }
@@ -54,7 +59,12 @@ class TransactionController extends Controller
         $transaction->name = $request->name;
         $transaction->amount = $request->amount;
         $transaction->date_transaction = $request->date_transaction;
+
+        $categories = Categorie::find($request->input('category'));
+        $categories->transaction()->save($transaction);
+
         $transaction->save();
+
         return Redirect::route('form')->with('success', 'Transaction ajoutée');
     }
 
@@ -81,6 +91,7 @@ class TransactionController extends Controller
         $data = [
             'title' => 'Modifier une opération',
             'transaction' => Transaction::find($id),
+            'categories' => Categorie::all(),
         ];
         return view('form', $data);
     }
@@ -109,6 +120,10 @@ class TransactionController extends Controller
         $transaction->name = $validatedData['name'];
         $transaction->date_transaction = $validatedData['date_transaction'];
         $transaction->amount = $validatedData['amount'];
+
+        $categories = Categorie::find($request->input('category'));
+        $categories->transaction()->save($transaction);
+
         $transaction->save();
 
         return redirect()->route('index')->with('success', 'Transaction mise à jour');

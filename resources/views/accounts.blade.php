@@ -27,6 +27,11 @@
                     @foreach ($transactions as $transaction)
                     <tr>
                         <td width="50" class="ps-3">
+                            @if ($transaction->categorie !== null)
+                            <i class="bi bi-{{ $transaction->categorie->icon }} fs-3"></i>
+                            @endif
+
+
                         </td>
                         <td>
                             <time datetime="2023-07-10" class="d-block fst-italic fw-light">{{$transaction->date_transaction}}</time>
