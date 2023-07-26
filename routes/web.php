@@ -30,3 +30,5 @@ Route::get('/accounts/add', [TransactionController::class, 'create'])->name('for
 Route::post('/accounts/add', [TransactionController::class, 'store'])->name('formPost');
 Route::delete('/accounts/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 Route::get('/accounts/history', [TransactionController::class, 'history'])->name('history');
+Route::get('/accounts/update', [TransactionController::class, 'edit'])->name('editForm');
+Route::get('/accounts/update', [TransactionController::class, 'update'])->name('updateForm');

@@ -77,7 +77,8 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaction = Transaction::find($id);
+        return view('editForm', compact($id));
     }
 
     /**
@@ -89,7 +90,13 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'amount' => 'required|numeric',
+            'date_transaction' => 'required',
+        ]);
+        Transaction::whereId($id)->update($validatedData);
+        return redirect('/accounts')->with('success', 'Transaction mise à jour avec succèss');
     }
 
     /**
