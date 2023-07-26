@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Redirect;
 
 class TransactionController extends Controller
 {
@@ -45,7 +46,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'amount' => 'required|numeric',
         ]);
@@ -54,7 +55,7 @@ class TransactionController extends Controller
         $transaction->amount = $request->amount;
         $transaction->date_transaction = $request->date_transaction;
         $transaction->save();
-        return redirect('form')->with('status', 'Transaction ajoutée');
+        return Redirect::route('form')->with('success', 'Transaction ajoutée');
     }
 
     /**
@@ -102,11 +103,25 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
 
         if (!$transaction) {
-            return redirect()->route('index')->with('error', 'Transaction not found.');
+            return redirect()->route('index')->with('error', 'Erreur lors de la suppression.');
         }
 
         $transaction->delete();
 
-        return redirect()->route('index')->with('success', 'Transaction deleted successfully.');
+        return redirect()->route('index')->with('success', 'La transaction a bien été supprimée.');
+    }
+
+    /**
+     * Show history of validated transactions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function history()
+    {
+        $data = [
+            'title' => '',
+            'transactions' => Transaction::where('done', true)->get(),
+        ];
+        return view('accounts', $data);
     }
 }

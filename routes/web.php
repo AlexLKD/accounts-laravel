@@ -23,9 +23,10 @@ Route::get('/', function () {
 Route::get('/accounts', function () {
     return view('accounts');
 });
+// Route::get('/imports', [TransactionController::class, 'index'])->name('imports');
+// Route::get('/categorie', [TransactionController::class, 'index'])->name('categorie');
 Route::get('/accounts', [TransactionController::class, 'index'])->name('index');
-Route::get('/imports', [TransactionController::class, 'index'])->name('imports');
-Route::get('/categorie', [TransactionController::class, 'index'])->name('categorie');
-Route::get('/form', [TransactionController::class, 'create'])->name('form');
-Route::post('/form', [TransactionController::class, 'store'])->name('formPost');
-Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+Route::get('/accounts/add', [TransactionController::class, 'create'])->name('form');
+Route::post('/accounts/add', [TransactionController::class, 'store'])->name('formPost');
+Route::delete('/accounts/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+Route::get('/accounts/history', [TransactionController::class, 'history'])->name('history');

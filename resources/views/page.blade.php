@@ -63,9 +63,6 @@
                     </div>
                     @endif
 
-                    @foreach ($transactions as $transaction)
-                    @endforeach
-
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -73,11 +70,6 @@
                             <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                    </div>
-                    @endif
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
                     </div>
                     @endif
                     @section('content')

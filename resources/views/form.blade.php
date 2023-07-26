@@ -1,7 +1,7 @@
     @extends('page')
     @section('content')
     <form action="{{@route('formPost')}}" method="post">
-        {{csrf_field() }}
+        @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Nom de l'opération *</label>
             <input type="text" class="form-control" name="name" id="name" placeholder="Facture d'électricité" required>
