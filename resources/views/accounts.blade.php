@@ -38,19 +38,14 @@
                             {{$transaction->name}}
                         </td>
                         <td class="text-end">
-                            <?php
-                            if (str_contains($transaction['amount'], "-")) {
-                                echo '<span class="rounded-pill text-nowrap bg-warning-subtle px-2">';
-                                echo $transaction['amount'];
-                            } else {
-                                echo '<span class="rounded-pill text-nowrap bg-success-subtle px-2">';
-                                echo '+' . $transaction['amount'];
-                            }
-                            ?>
-                            <!-- 
+                            @if (str_contains($transaction->amount, "-"))
                             <span class="rounded-pill text-nowrap bg-warning-subtle px-2">
-                                {{$transaction->amount}} €
-                            </span> -->
+                                {{$transaction->amount}}
+                                @else
+                                <span class="rounded-pill text-nowrap bg-success-subtle px-2">
+                                    +{{$transaction->amount}}
+                                    @endif
+
                         </td>
                         <td class="text-end text-nowrap">
                             <a href="{{ route('transactions.edit', ['id' => $transaction->id]) }}" class="btn btn-outline-primary btn-sm rounded-circle">

@@ -27,7 +27,7 @@
                         <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Synthèses</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Catégories</a>
+                        <a href="{{@route('categorieIndex')}}" class="nav-link link-body-emphasis">Catégories</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{@route('index')}}" class="nav-link link-body-emphasis">Importer</a>

@@ -61,7 +61,7 @@ class TransactionController extends Controller
         $transaction->date_transaction = $request->date_transaction;
 
         $categories = Categorie::find($request->input('category'));
-        $categories->transaction()->save($transaction);
+        $categories->transactions()->save($transaction);
 
         $transaction->save();
 
@@ -122,7 +122,7 @@ class TransactionController extends Controller
         $transaction->amount = $validatedData['amount'];
 
         $categories = Categorie::find($request->input('category'));
-        $categories->transaction()->save($transaction);
+        $categories->transactions()->save($transaction);
 
         $transaction->save();
 
