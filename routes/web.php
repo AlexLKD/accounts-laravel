@@ -30,5 +30,7 @@ Route::get('/accounts/add', [TransactionController::class, 'create'])->name('for
 Route::post('/accounts/add', [TransactionController::class, 'store'])->name('formPost');
 Route::delete('/accounts/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 Route::get('/accounts/history', [TransactionController::class, 'history'])->name('history');
-Route::get('/accounts/update', [TransactionController::class, 'edit'])->name('editForm');
-Route::get('/accounts/update', [TransactionController::class, 'update'])->name('updateForm');
+
+
+Route::get('/accounts/update/{id}', [TransactionController::class, 'edit'])->name('transactions.edit'); // Use GET for displaying the edit form
+Route::put('/accounts/update/{id}', [TransactionController::class, 'update'])->name('formUpdate'); // Use PUT for processing the form update

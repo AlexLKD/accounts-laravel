@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Categorie;
+use App\Models\Transaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('imports', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('transactions', function (Blueprint
+        $table) {
+            $table->foreignIdFor(Categorie::class);
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imports');
+        //
     }
 };

@@ -77,8 +77,12 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        $transaction = Transaction::find($id);
-        return view('editForm', compact($id));
+        // $transaction = Transaction::find($id);
+        $data = [
+            'title' => 'Modifier une opération',
+            'transaction' => Transaction::find($id),
+        ];
+        return view('form', $data);
     }
 
     /**
@@ -90,13 +94,24 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $transaction = Transaction::find($id);
+
+        if (!$transaction) {
+            return redirect()->route('index')->with('error', 'Transaction not found.');
+        }
+
         $validatedData = $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'date_transaction' => 'required|date',
             'amount' => 'required|numeric',
-            'date_transaction' => 'required',
         ]);
-        Transaction::whereId($id)->update($validatedData);
-        return redirect('/accounts')->with('success', 'Transaction mise à jour avec succèss');
+
+        $transaction->name = $validatedData['name'];
+        $transaction->date_transaction = $validatedData['date_transaction'];
+        $transaction->amount = $validatedData['amount'];
+        $transaction->save();
+
+        return redirect()->route('index')->with('success', 'Transaction mise à jour');
     }
 
     /**
